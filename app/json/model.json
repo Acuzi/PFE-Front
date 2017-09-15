@@ -1,0 +1,7 @@
+{
+  "type" : "Lieu",
+  "name" : "Chateau",
+  "desc" : "Un beau chateau. Y aura t-il une princesse ?",
+  "action" : ["Accéder à la <url>cour </url>", "Ouvrir la porte"],
+  "img" : "url"
+}

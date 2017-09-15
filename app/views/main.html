@@ -1,0 +1,112 @@
+<div class="ui grid">
+    <div id="menu" class="ui vertical menu three wide column">
+        <div id="logo">
+            <img src="../images/logo_TSP.png" alt="TSP"
+            > <img src="../images/logoHTTPGAME.png" alt="HTTP GAMES"/>
+        </div>
+        <div id="request" class="item">
+            <h2>Requête HTTP</h2>
+            <form>
+                <div class="ui dropdown item">
+                    {{HTTP}} <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="" class="item">Méthode</a>
+                        <select name="HTTP" id="HTTP" ng-model="HTTP" required>
+                            <option>GET</option>
+                            <option>POST</option>
+                            <option>PUT</option>
+                            <option>DELETE</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="ui dropdown item">{{askedUrl}}<i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="" class="item">Modifier l'URL</a>
+                        <input type="text" name="url" id="url" ng-model="askedUrl" required/>
+                    </div>
+                </div>
+
+                <div class="ui dropdown item">Headers <i class="dropdown icon"></i>
+                    <div class="menu ui two column divided grid ">
+                        <a href="" class="item row">
+                            <div class="column">Nom</div>
+                            <div class="column">Contenu</div>
+                        </a>
+                        <div class="row">
+                            <div ng-repeat="n in range(1, nbHeader)">
+                                <input name="name_{{n}}" ng-model="name[n]" class="column" type="text">
+                                <input name="content_{{n}}" ng-model="content[n]" class="column" type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <a href="" class="column"><i ng-click="addHeader()" class="fa fa-plus-circle"
+                                                         aria-hidden="true"></i></a>
+                            <a href="" class="column"><i ng-click="addHeader(true)" class="fa fa-minus-circle"
+                                                         aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui dropdown item">Body <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item">Body</a>
+                        <textarea ng-model="body"></textarea>
+                    </div>
+                </div>
+                <div id="submit"><input ng-click="goRequest()" type="submit" class="ui button"></div>
+            </form>
+        </div>
+        <div id="inventaire" class="item">
+            <h2>Inventaire</h2>
+            <div ng-repeat="item in inventaire">
+                <ul>
+                    <li>{{item}}</li>
+                </ul>
+            </div>
+        </div>
+        <div id="response" class="item">
+            <h2>Réponse</h2>
+            <div ng-hide="loading">
+                <div class="item ui basic button" ng-class="{'red' : error, 'green' : !error}">{{reponse.status}} --
+                    {{reponse.status_text}}
+                </div>
+
+                <div class="item">Headers</div>
+                <div class="ui two column divided grid">
+                    <div class="row">
+                        <div class="column">Nom</div>
+                        <div class="column">Contenu</div>
+                    </div>
+                    <div class="row" ng-repeat="headerTitle in reponse.headersTitles">
+                        <span class="column">{{headerTitle}}</span>
+                        <span class="column">{{reponse.headers[headerTitle]}}</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="corps" class="thirteen wide column">
+        <h1 class="ui center aligned header">HTTP GAME</h1>
+        <div class="ui container">
+            <div class="ui relaxed divided items">
+                <div class="item">
+                    <div class="content">
+                        <div class="header" bind-html-compile="result.name"></div>
+                        <div class="description"><p class="" bind-html-compile="result.desc"></p></div>
+                        <div class="extra">
+                            <div ng-repeat="action in result.action">
+                                <li class="action" bind-html-compile="action"></li>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="ui dimmer" ng-class="{'active' : loading}">
+            <div class="ui loader"></div>
+        </div>
+    </div>
+</div>
